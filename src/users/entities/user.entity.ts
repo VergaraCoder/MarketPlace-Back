@@ -1,3 +1,4 @@
+import { Buy } from 'src/buys/entities/buy.entity';
 import { Opinion } from 'src/opinions/entities/opinion.entity';
 import {Column, Entity, OneToMany, PrimaryGeneratedColumn} from 'typeorm';
 
@@ -20,4 +21,7 @@ export class User {
 
     @OneToMany(()=>Opinion,opinion=>opinion.user)
     opinion:Opinion[];
+
+    @OneToMany(()=>Buy,buy=>buy.user)
+    buy:Buy[];
 }
