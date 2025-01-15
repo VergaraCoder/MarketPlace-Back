@@ -1,11 +1,12 @@
 import { Module } from '@nestjs/common';
 import { OpinionsModule } from './opinions/opinions.module';
 import { UsersModule } from './users/users.module';
-import { CategoriesModule } from './categories/categories.module';
 import { BuysModule } from './buys/buys.module';
 import { SalesModule } from './sales/sales.module';
 import { AuthModule } from './auth/auth.module';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { DbConfig } from './common/db/Db.config';
 
 @Module({
   imports: [
@@ -13,7 +14,13 @@ import { ConfigModule } from '@nestjs/config';
       isGlobal:true,
       envFilePath:".env"
     }),
-    UsersModule, OpinionsModule, CategoriesModule, BuysModule, SalesModule, AuthModule],
+    // TypeOrmModule.forRootAsync({
+    //   imports:[ConfigModule],
+    //   inject:[ConfigService],
+    //   useClass:DbConfig
+    // })
+    ,
+    UsersModule, OpinionsModule, BuysModule, SalesModule, AuthModule],
   controllers: [],
   providers: [
 
