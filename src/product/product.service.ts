@@ -13,7 +13,7 @@ export class ProductService {
     @InjectRepository(Product) private ProductRepository:Repository<Product>
   ){}
 
- async create(createProductDto: CreateProductDto):Promise<Product> {
+ async create(createProductDto: CreateProductDto | Partial<Product>):Promise<Product> {
      try{
        const createproduct:Product=this.ProductRepository.create(createProductDto);
        await this.ProductRepository.save(createproduct);
