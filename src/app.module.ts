@@ -7,6 +7,7 @@ import { AuthModule } from './auth/auth.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DbConfig } from './common/db/Db.config';
+import { PaymentMethodModule } from './paymentMethod/payment-method.module';
 
 @Module({
   imports: [
@@ -20,7 +21,7 @@ import { DbConfig } from './common/db/Db.config';
     //   useClass:DbConfig
     // })
     ,
-    UsersModule, OpinionsModule, BuysModule, SalesModule, AuthModule],
+    UsersModule, OpinionsModule, BuysModule, SalesModule, AuthModule, PaymentMethodModule],
   controllers: [],
   providers: [
 
