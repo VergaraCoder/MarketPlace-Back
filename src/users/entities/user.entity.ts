@@ -1,4 +1,5 @@
 import { Buy } from 'src/buys/entities/buy.entity';
+import { Cart } from 'src/cart/entities/cart.entity';
 import { Opinion } from 'src/opinions/entities/opinion.entity';
 import { Product } from 'src/product/entities/product.entity';
 import { Sale } from 'src/sales/entities/sale.entity';
@@ -37,4 +38,6 @@ export class User {
     @OneToMany(()=>Service,service=>service.user)
     service:Service[];
 
+    @OneToMany(()=>Cart,cart=>cart.user)
+    cart:Cart[];
 }
