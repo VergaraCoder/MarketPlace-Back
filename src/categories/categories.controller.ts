@@ -7,10 +7,10 @@ import { UpdateCategoryDto } from './dto/update-category.dto';
 export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}
 
-  @Post()
-  create(@Body() createCategoryDto: CreateCategoryDto) {
-    return this.categoriesService.create(createCategoryDto);
-  }
+  // @Post()
+  // create(@Body() createCategoryDto: CreateCategoryDto) {
+  //   return this.categoriesService.create(createCategoryDto);
+  // }
 
   @Get()
   findAll() {
