@@ -1,4 +1,5 @@
 import { Opinion } from "src/opinions/entities/opinion.entity";
+import { ProductsCart } from "src/productsCart/entities/products-cart.entity";
 import { Sale } from "src/sales/entities/sale.entity";
 import { User } from "src/users/entities/user.entity";
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
@@ -28,4 +29,7 @@ export class Product {
 
     @OneToMany(()=>Sale,sale=>sale.product)
     sale:Sale[];
+
+    @OneToMany(()=>ProductsCart,productCart=>productCart.product)
+    productCart:ProductsCart[];
 }

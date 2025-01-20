@@ -11,6 +11,7 @@ import { PaymentMethodModule } from './paymentMethod/payment-method.module';
 import { ProductModule } from './product/product.module';
 import { ServicesModule } from './services/services.module';
 import { CartModule } from './cart/cart.module';
+import { ProductsCartModule } from './productsCart/products-cart.module';
 
 @Module({
   imports: [
@@ -24,7 +25,7 @@ import { CartModule } from './cart/cart.module';
       useClass:DbConfig
     })
     ,
-    UsersModule, OpinionsModule, BuysModule, SalesModule, AuthModule, PaymentMethodModule, ProductModule, ServicesModule, CartModule],
+    UsersModule, OpinionsModule, BuysModule, SalesModule, AuthModule, PaymentMethodModule, ProductModule, ServicesModule, CartModule, ProductsCartModule],
   controllers: [],
   providers: [
 
