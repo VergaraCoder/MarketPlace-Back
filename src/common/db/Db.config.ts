@@ -6,6 +6,7 @@ import { Opinion } from "src/opinions/entities/opinion.entity";
 import { PaymentMethod } from "src/paymentMethod/entities/payment-method.entity";
 import { Product } from "src/product/entities/product.entity";
 import { Sale } from "src/sales/entities/sale.entity";
+import { Service } from "src/services/entities/service.entity";
 import { User } from "src/users/entities/user.entity";
 
 
@@ -19,13 +20,17 @@ export class DbConfig implements TypeOrmOptionsFactory{
     ){}
 
     createTypeOrmOptions(): Promise<TypeOrmModuleOptions> | TypeOrmModuleOptions {
+        console.log("the user is");
+        console.log(this.configService.get<string>("DB_USERNAME"));
+        
         return({
             type:"mysql",
             host:this.configService.get<string>("DB_HOST"),
             port:this.configService.get<number>("DB_PORT"),
+            password:this.configService.get<string>("DB_PASSWORD"),
             username:this.configService.get<string>("DB_USERNAME"),
             database:this.configService.get<string>("DB_DATABASE"),
-            entities:[User,Buy,Sale,Opinion,Product,PaymentMethod],
+            entities:[User,Buy,Sale,Opinion,Product,PaymentMethod,Service],
             synchronize:true
         });   
     }

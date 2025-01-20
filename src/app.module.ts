@@ -9,6 +9,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { DbConfig } from './common/db/Db.config';
 import { PaymentMethodModule } from './paymentMethod/payment-method.module';
 import { ProductModule } from './product/product.module';
+import { ServicesModule } from './services/services.module';
 
 @Module({
   imports: [
@@ -22,7 +23,7 @@ import { ProductModule } from './product/product.module';
       useClass:DbConfig
     })
     ,
-    UsersModule, OpinionsModule, BuysModule, SalesModule, AuthModule, PaymentMethodModule, ProductModule],
+    UsersModule, OpinionsModule, BuysModule, SalesModule, AuthModule, PaymentMethodModule, ProductModule, ServicesModule],
   controllers: [],
   providers: [
 
