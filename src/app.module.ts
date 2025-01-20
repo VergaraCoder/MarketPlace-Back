@@ -16,11 +16,11 @@ import { ProductModule } from './product/product.module';
       isGlobal:true,
       envFilePath:".env"
     }),
-    // TypeOrmModule.forRootAsync({
-    //   imports:[ConfigModule],
-    //   inject:[ConfigService],
-    //   useClass:DbConfig
-    // })
+    TypeOrmModule.forRootAsync({
+      imports:[ConfigModule],
+      inject:[ConfigService],
+      useClass:DbConfig
+    })
     ,
     UsersModule, OpinionsModule, BuysModule, SalesModule, AuthModule, PaymentMethodModule, ProductModule],
   controllers: [],

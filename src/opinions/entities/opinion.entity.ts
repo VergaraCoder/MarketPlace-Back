@@ -1,5 +1,6 @@
+import { Product } from 'src/product/entities/product.entity';
 import { User } from 'src/users/entities/user.entity';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity("opinions")
 export class Opinion {
@@ -20,5 +21,8 @@ export class Opinion {
 
     @ManyToOne(()=>User,user=>user.opinion)
     user:User;
+
+    @ManyToOne(()=>Product,product=>product.opinion)
+    product:Product[];
 
 }

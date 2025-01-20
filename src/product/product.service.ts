@@ -19,6 +19,8 @@ export class ProductService {
        await this.ProductRepository.save(createproduct);
        return createproduct;
      }catch(err:any){
+      console.log(err);
+      
        throw err;
      }
    }

@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Buy } from "src/buys/entities/buy.entity";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity("paymentMethod")
 export class PaymentMethod {
@@ -7,4 +8,7 @@ export class PaymentMethod {
 
     @Column()
     name:string;
+
+    @OneToMany(()=>Buy,buy=>buy.paymentMethod)
+    buy:Buy[];
 }

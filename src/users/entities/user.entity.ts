@@ -1,6 +1,7 @@
 import { Buy } from 'src/buys/entities/buy.entity';
 import { Opinion } from 'src/opinions/entities/opinion.entity';
 import { Product } from 'src/product/entities/product.entity';
+import { Sale } from 'src/sales/entities/sale.entity';
 import {Column, Entity, OneToMany, PrimaryGeneratedColumn} from 'typeorm';
 
 @Entity("users")
@@ -28,6 +29,8 @@ export class User {
 
     @OneToMany(()=>Product,prooduct=>prooduct.user)
     product:Product[];
-
+   
+    @OneToMany(()=>Sale,sale=>sale.user)
+    sale:Sale[];
 
 }
