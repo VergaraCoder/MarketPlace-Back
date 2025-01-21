@@ -7,6 +7,7 @@ import { UsersModule } from 'src/users/users.module';
 import { LocalStrategy } from './jwt/strategys/local.strategy';
 import { LocalGuard } from './jwt/guards/local.guard';
 import { JwtGuard } from './jwt/guards/verifyJwt.guard';
+import { CartModule } from 'src/cart/cart.module';
 
 @Module({
   imports:[
@@ -17,13 +18,14 @@ import { JwtGuard } from './jwt/guards/verifyJwt.guard';
         secret:ConfigService.get<string>("JWT_SECRET")
       })
     }),
-    forwardRef(()=>UsersModule)  
+    forwardRef(()=>UsersModule),
+    forwardRef(()=>CartModule) 
   ],
   controllers: [
     AuthController
   ],
   providers: [
-    JwtService,
+    JwtModule,
     LocalStrategy,
     LocalGuard,
     AuthService,

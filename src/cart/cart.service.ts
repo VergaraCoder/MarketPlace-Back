@@ -15,9 +15,18 @@ export class CartService {
 
   async create(createCartDto: CreateCartDto):Promise<Cart> {
     try{
+      const cartSearch:Cart= await this.findOneByUserId(createCartDto.idUser);
+
+      if(cartSearch){
+        return cartSearch;
+      }
+
       const cart:Cart=this.cartRepository.create(createCartDto);
+
       await this.cartRepository.save(cart);
+
       return cart;
+
     }catch(err:any){
       if(err instanceof QueryFailedError){
         throw new ManageError({

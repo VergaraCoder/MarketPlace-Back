@@ -12,6 +12,8 @@ export class ErrorFilter implements ExceptionFilter{
         const ifExist:string[]=exception.message.split(" :: ");
         const ifExist2:any=exception.response;
 
+        console.log(exception);
+        
         if(ifExist2 && ifExist2.message){
             status=ifExist2.StatusCode ? ifExist2.statusCode : 400;
             message=ifExist2.message;

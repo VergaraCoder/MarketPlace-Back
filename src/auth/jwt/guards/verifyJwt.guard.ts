@@ -18,6 +18,7 @@ interface ReturnTokens {
 
 interface PayloadToken {
     id: number;
+    cart:number;
     email: string;
     name: string
 }
@@ -34,6 +35,8 @@ export class JwtGuard implements CanActivate {
         //const roles=this.reflector.get(Roles(ROLES_KEY),context.getHandler());
         const request: Request = context.switchToHttp().getRequest();
         const headers: TokensAuth | any = request.headers;
+        console.log("PASSS");
+        
         try {            
             await this.JwtService.verify(headers["access_token"]);
             const decodeToken: PayloadToken = await this.JwtService.decode(headers["access_token"]);

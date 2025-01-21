@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import { ErrorFilter } from './common/Errors/error.exceptionFilter';
 import { DataSource } from 'typeorm';
 import { SeederRole } from './common/db/seeders/role.seeder';
+import { SeederPaymentMethod } from './common/db/seeders/paymentMethod.seeder';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -11,6 +12,9 @@ async function bootstrap() {
   const seederRole:SeederRole=new SeederRole();
   await seederRole.run(dataSource);
   
+  const seederPayment:SeederPaymentMethod=new SeederPaymentMethod();
+  await seederPayment.run(dataSource);
+
   app.useGlobalFilters(new ErrorFilter());
   
   await app.listen(process.env.PORT ?? 5000);
