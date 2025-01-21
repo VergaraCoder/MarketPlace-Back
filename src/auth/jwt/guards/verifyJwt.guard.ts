@@ -26,7 +26,6 @@ interface PayloadToken {
 export class JwtGuard implements CanActivate {
 
     constructor(
-        private reflector: Reflector,
         private JwtService: JwtService,
         private authService: AuthService
     ) { }
@@ -35,7 +34,7 @@ export class JwtGuard implements CanActivate {
         //const roles=this.reflector.get(Roles(ROLES_KEY),context.getHandler());
         const request: Request = context.switchToHttp().getRequest();
         const headers: TokensAuth | any = request.headers;
-        try {
+        try {            
             await this.JwtService.verify(headers["access_token"]);
             const decodeToken: PayloadToken = await this.JwtService.decode(headers["access_token"]);
             request["user"] = decodeToken;
@@ -49,7 +48,7 @@ export class JwtGuard implements CanActivate {
             else if (err) {
                 throw new ManageError({
                     type: "UNAUTHORIZED",
-                    message: "THE TOKEN IS NOT VALID"
+                    message: "THE TOKEN MUST BE PROVIDER"
                 });
             }
             throw ManageError.signedError(err.message);
