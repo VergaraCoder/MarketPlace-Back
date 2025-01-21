@@ -26,6 +26,14 @@ export class ProductController {
     return this.productService.findOne(+id);
   }
 
+
+  @UseGuards(JwtGuard)
+  @Get('name/:name')
+  async findOneByName(@Param('name') name: string) {
+    return await this.productService.findOneProductByName(name);
+  }
+
+
   @UseGuards(JwtGuard)
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto) {

@@ -6,6 +6,11 @@ import { ProductsCart } from './entities/products-cart.entity';
 import { QueryFailedError, Repository } from 'typeorm';
 import { ManageError } from 'src/common/Errors/custom.error';
 
+interface CartParameters{
+  idCart:number;
+  idProduct:number;
+}
+
 @Injectable()
 export class ProductsCartService {
 
@@ -13,7 +18,7 @@ export class ProductsCartService {
     @InjectRepository(ProductsCart) private productCartRepository: Repository<ProductsCart>
   ) { }
 
-  async create(createProductsCartDto: CreateProductsCartDto):Promise<ProductsCart> {
+  async create(createProductsCartDto: CartParameters):Promise<ProductsCart> {
     try {
       const productCart: ProductsCart = this.productCartRepository.create(createProductsCartDto);
       await this.productCartRepository.save(productCart);

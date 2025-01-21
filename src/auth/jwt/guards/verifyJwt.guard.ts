@@ -44,6 +44,8 @@ export class JwtGuard implements CanActivate {
             return true;
         } catch (err: any) {
             if (err.message == "jwt expired") {
+                console.log("expiramossssssssssss");
+                
                 const tokens: ReturnTokens = await this.authService.renovateToken(headers["refresh_token"]);
                 request["user"] = tokens;
                 return true;

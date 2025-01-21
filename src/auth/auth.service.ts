@@ -12,8 +12,18 @@ interface ReturnTokens{
 
 interface PayloadToken{
   id: number;
+  cart:number;
   email: string;
   name:string
+}
+
+interface ReturnDataRenovateToken extends ReturnTokens {
+  id:number;
+  cart:number;
+  email: string;
+  name: string
+  iat?: number;
+  exp?: number;
 }
 
 @Injectable()
@@ -30,11 +40,16 @@ export class AuthService {
     }
   }
 
-  async renovateToken(refreshToken:string):Promise<ReturnTokens>{
+  async renovateToken(refreshToken:string):Promise<ReturnDataRenovateToken>{
     try{
       await this.jwtService.verify(refreshToken);
       const payload:PayloadToken=this.jwtService.decode(refreshToken);
-      return this.create({id:payload.id,email:payload.email,name:payload.name})
+      const newTokens=this.create({id:payload.id,email:payload.email,name:payload.name})
+      return{
+        access_token:newTokens.access_token,
+        refresh_token:newTokens.refresh_token,
+        ...payload
+      }
     }catch(err:any){
       if(err.message=="jwt expired"){
         throw new ManageError({

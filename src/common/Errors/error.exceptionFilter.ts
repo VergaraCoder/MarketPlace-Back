@@ -7,7 +7,7 @@ export class ErrorFilter implements ExceptionFilter{
         const request:Request=host.switchToHttp().getRequest();
         const response:Response=host.switchToHttp().getResponse();
 
-        let status:number;
+        let status:number | any;
         let message:string;
         const ifExist:string[]=exception.message.split(" :: ");
         const ifExist2:any=exception.response;
