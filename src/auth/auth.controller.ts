@@ -11,8 +11,9 @@ interface ReturnTokens{
 
 interface PayloadToken{
   id: number;
+  cart:number;
   email: string;
-  name:string
+  name:string;
 }
 
 @Controller('auth')

@@ -1,4 +1,3 @@
-import { Product } from "src/product/entities/product.entity";
 import { ProductsCart } from "src/productsCart/entities/products-cart.entity";
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 

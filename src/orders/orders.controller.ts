@@ -1,8 +1,16 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req } from '@nestjs/common';
 import { OrdersService } from './orders.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
 import { JwtGuard } from 'src/auth/jwt/guards/verifyJwt.guard';
+import { Request } from 'express';
+
+interface DataPayload{
+  id: number;
+  cart:number;
+  email: string;
+  name:string;
+}
 
 @Controller('orders')
 export class OrdersController {
@@ -10,14 +18,18 @@ export class OrdersController {
 
   @UseGuards(JwtGuard)
   @Post()
-  create(@Body() createOrderDto: CreateOrderDto) {
-    return this.ordersService.create(createOrderDto);
+  create(@Body() createOrderDto: CreateOrderDto,@Req() request:Request) {
+    const requestData:DataPayload | any=request["user"];
+    console.log(requestData);
+    
+    return this.ordersService.create({...createOrderDto,...requestData});
   }
 
   @UseGuards(JwtGuard)
-  @Get()
-  findAll() {
-    return this.ordersService.findAll();
+  @Get("oneUser")
+  findAll(@Req() request:Request) {
+    const requestData:DataPayload| any =request["user"];
+    return this.ordersService.ordersByUser(requestData.id);
   }
 
   @UseGuards(JwtGuard)

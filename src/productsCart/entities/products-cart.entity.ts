@@ -21,7 +21,7 @@ export class ProductsCart {
     @JoinColumn(({name:"idCart"}))
     cart:Cart;
 
-    @ManyToOne(()=>Product,product=>product.productCart)
+    @ManyToOne(()=>Product,product=>product.productCart,{eager:true})
     @JoinColumn(({name:"idProduct"}))
     product:Product;
 

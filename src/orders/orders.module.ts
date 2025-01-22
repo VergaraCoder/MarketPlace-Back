@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Order } from './entities/order.entity';
 import { ProductsCartModule } from 'src/productsCart/products-cart.module';
 import { AuthModule } from 'src/auth/auth.module';
+import { ReturnTotalPrice } from './serviceWithLogic/returnTotalPrice';
 
 @Module({
   imports:[
@@ -13,7 +14,10 @@ import { AuthModule } from 'src/auth/auth.module';
     AuthModule
   ],
   controllers: [OrdersController],
-  providers: [OrdersService],
+  providers: [
+    OrdersService,
+    ReturnTotalPrice
+  ],
   exports:[
     TypeOrmModule
   ]
