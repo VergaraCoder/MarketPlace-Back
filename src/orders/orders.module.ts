@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { OrdersService } from './orders.service';
 import { OrdersController } from './orders.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -10,7 +10,7 @@ import { ReturnTotalPrice } from './serviceWithLogic/returnTotalPrice';
 @Module({
   imports:[
     TypeOrmModule.forFeature([Order]),
-    ProductsCartModule,
+    forwardRef(()=>ProductsCartModule),
     AuthModule
   ],
   controllers: [OrdersController],
@@ -19,7 +19,8 @@ import { ReturnTotalPrice } from './serviceWithLogic/returnTotalPrice';
     ReturnTotalPrice
   ],
   exports:[
-    TypeOrmModule
+    TypeOrmModule,
+    OrdersService,
   ]
 })
 export class OrdersModule {}

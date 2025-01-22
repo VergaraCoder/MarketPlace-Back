@@ -26,21 +26,9 @@ export class ProductsCartController {
   }
 
   @UseGuards(JwtGuard)
-  @Get()
-  findAll() {
-    return this.productsCartService.findAll();
-  }
-
-  @UseGuards(JwtGuard)
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.productsCartService.findOne(+id);
-  }
-
-  @UseGuards(JwtGuard)
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateProductsCartDto: UpdateProductsCartDto) {
-    return this.productsCartService.update(+id, updateProductsCartDto);
+    return this.productsCartService.updateProductCartQuantity(+id, updateProductsCartDto.quantity);
   }
 
   @UseGuards(JwtGuard)

@@ -5,6 +5,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { ProductsCart } from './entities/products-cart.entity';
 import { QueryFailedError, Repository } from 'typeorm';
 import { ManageError } from 'src/common/Errors/custom.error';
+import { OrdersService } from 'src/orders/orders.service';
+import { Order } from 'src/orders/entities/order.entity';
 
 interface CartParameters{
   idCart:number;
@@ -15,8 +17,12 @@ interface CartParameters{
 export class ProductsCartService {
 
   constructor(
-    @InjectRepository(ProductsCart) private productCartRepository: Repository<ProductsCart>
-  ) { }
+    @InjectRepository(ProductsCart) private productCartRepository: Repository<ProductsCart>,
+    private orderService:OrdersService,
+  ) { 
+
+  }
+
 
   async create(createProductsCartDto: CartParameters):Promise<ProductsCart> {
     try {
@@ -34,16 +40,40 @@ export class ProductsCartService {
     }
   }
 
-  findAll() {
-    return `This action returns all productsCart`;
-  }
 
-  findOne(id: number) {
-    return `This action returns a #${id} productsCart`;
-  }
+    async updateProductCartQuantity(idProductCart: number, quantity: any) {
+      try{
+        const {affected}=await this.productCartRepository.update({id:idProductCart},{quantity:quantity});      
+        if(affected==0){
+          throw new ManageError({
+            type:"NOT_FOUND",
+            message:"FAILED TO UPDATED"
+          });
+        }
+        await this.orderService.updateOrderTotalPrice(idProductCart,quantity);
+        return "melo";
+      }catch(err:any){
+        console.log(
+          err
+        );
+        
+      }
+    }
 
-  update(id: number, updateProductsCartDto: UpdateProductsCartDto) {
-    return `This action updates a #${id} productsCart`;
+
+  async update(id: number, updateProductsCartDto: UpdateProductsCartDto): Promise<string> {
+    try{
+      const {affected}=await this.productCartRepository.update(id,updateProductsCartDto);
+      if(affected==0){
+        throw new ManageError({
+          type:"NOT_FOUND",
+          message:"FAILTED TO UPDATED"
+        });
+      }
+      return "melo";
+    }catch(err:any){
+      throw ManageError.signedError(err.message);
+    }
   }
 
   async remove(id: number) {

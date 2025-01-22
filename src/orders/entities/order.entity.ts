@@ -12,7 +12,7 @@ export class Order {
     @Column()
     totalPrice:number;
 
-    @ManyToOne(()=>ProductsCart,productCart=>productCart.order)
+    @ManyToOne(()=>ProductsCart,productCart=>productCart.order,{eager:true})
     @JoinColumn({name:"productCartId"})
     productCart:ProductsCart;
 }

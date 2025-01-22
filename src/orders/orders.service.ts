@@ -7,6 +7,7 @@ import { QueryFailedError, Repository } from 'typeorm';
 import { ManageError } from 'src/common/Errors/custom.error';
 import { ReturnTotalPrice } from './serviceWithLogic/returnTotalPrice';
 import { Product } from 'src/product/entities/product.entity';
+import { ProductsCartService } from 'src/productsCart/products-cart.service';
 import { ProductsCart } from 'src/productsCart/entities/products-cart.entity';
 
 @Injectable()
@@ -14,7 +15,7 @@ export class OrdersService {
 
   constructor(
     @InjectRepository(Order) private orderRepository: Repository<Order>,
-    private returnPrice:ReturnTotalPrice
+    private returnPrice:ReturnTotalPrice,
   ) { }
 
   async create(createOrderDto: any): Promise<Order | any> {
@@ -72,8 +73,21 @@ export class OrdersService {
     }
   }
 
-  update(id: number, updateOrderDto: UpdateOrderDto) {
-    return `This action updates a #${id} order`;
+  async updateOrderTotalPrice(idProductCart: number, quantity: number) {
+    try{
+
+      let totalPrice:number=0;
+
+      const order:Order=await this.orderRepository.findOneBy({productCartId:idProductCart});
+
+      totalPrice= quantity * order.productCart.product.price;
+      
+      await this.orderRepository.update(order.id,{totalPrice:totalPrice});
+
+    }catch(err:any){
+      throw err;
+      
+    }
   }
 
   async remove(id: number): Promise<string> {

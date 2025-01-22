@@ -38,10 +38,10 @@ export class OrdersController {
     return this.ordersService.findOne(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateOrderDto: UpdateOrderDto) {
-    return this.ordersService.update(+id, updateOrderDto);
-  }
+  // @Patch(':id')
+  // update(@Param('id') id: string, @Body() updateOrderDto: any) {
+  //   return this.ordersService.updateOrderQuantity(+id, updateOrderDto.quantity);
+  // }
 
   @UseGuards(JwtGuard)
   @Delete(':id')
