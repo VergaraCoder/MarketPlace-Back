@@ -78,7 +78,7 @@ export class OrdersService {
 
   async remove(id: number): Promise<string> {
     try {
-      const { affected } = await this.orderRepository.delete({ id });
+      const { affected } :number  | any = await this.orderRepository.delete({ id }) ;
       if (affected == 0) {
         throw new ManageError({
           type: "NOT_FOUND",
@@ -92,9 +92,9 @@ export class OrdersService {
   }
 
 
-  async ordersByUser(idUser:number){
+  async ordersByUser(idUser:number):Promise<Order[]>{
     try{  
-      const query=await this.orderRepository.createQueryBuilder("orders")
+      const query:Order[]=await this.orderRepository.createQueryBuilder("orders")
       .innerJoin("users","user")
       .andWhere("user.id = :user",{
         user:idUser
@@ -104,9 +104,7 @@ export class OrdersService {
       
       return query;
     }catch(err:any){
-
-      console.log(err);
-      
+      throw err;
     }
   }
 }
