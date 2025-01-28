@@ -8,7 +8,7 @@ import { JwtGuard } from 'src/auth/jwt/guards/verifyJwt.guard';
 export class ServicesController {
   constructor(private readonly servicesService: ServicesService) {}
 
-  @UseGuards(JwtGuard)
+  // @UseGuards(JwtGuard)
   @Post()
   create(@Body() createServiceDto: CreateServiceDto) {
     return this.servicesService.create(createServiceDto);

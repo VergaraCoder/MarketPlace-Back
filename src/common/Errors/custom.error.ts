@@ -6,9 +6,9 @@ export class ManageError extends Error{
     }
 
     public static signedError(message:string){
-        const error:string[]=message.split(" :: ");
+        const error:string=message.split(" :: ")[0];
         if(error){
-            throw new HttpException(error,HttpStatus[error[0]]);
+            throw new HttpException(message,HttpStatus[error]);
         }else{
             throw new HttpException("INTERNAL SERVER ERROR",HttpStatus.INTERNAL_SERVER_ERROR);
         }

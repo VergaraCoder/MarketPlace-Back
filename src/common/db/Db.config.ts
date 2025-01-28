@@ -10,6 +10,7 @@ import { Product } from "src/product/entities/product.entity";
 import { ProductsCart } from "src/productsCart/entities/products-cart.entity";
 import { Role } from "src/role/entities/role.entity";
 import { Sale } from "src/sales/entities/sale.entity";
+import { Schedule } from "src/schedule/entities/schedule.entity";
 import { Service } from "src/services/entities/service.entity";
 import { User } from "src/users/entities/user.entity";
 
@@ -34,7 +35,7 @@ export class DbConfig implements TypeOrmOptionsFactory{
             password:this.configService.get<string>("DB_PASSWORD"),
             username:this.configService.get<string>("DB_USERNAME"),
             database:this.configService.get<string>("DB_DATABASE"),
-            entities:[User,Buy,Sale,Opinion,Product,PaymentMethod,Service,Cart,ProductsCart,Order,Role],
+            entities:[User,Buy,Sale,Opinion,Product,PaymentMethod,Service,Cart,ProductsCart,Order,Role,Schedule],
             synchronize:true
         });   
     }
