@@ -19,10 +19,8 @@ export class ScheduleService {
     private scheduleVerify:VerifyDataSchedule
   ) { }
 
-  async create(createScheduleDto: CreateScheduleDto) {
+  async create(createScheduleDto: CreateScheduleDto):Promise<Schedule> {
     try {
-      console.log("the data is ");
-      console.log(createScheduleDto);
       await this.scheduleVerify.dateIsValidOrNot(createScheduleDto);
       const createSchedule: Schedule = this.scheduleRepository.create(createScheduleDto);
       await this.scheduleRepository.save(createSchedule);

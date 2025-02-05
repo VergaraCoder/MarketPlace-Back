@@ -33,7 +33,6 @@ export class VerifyDataSchedule {
                 });
             }
             return true;
-            
         }catch(err:any){
             throw ManageError.signedError(err.message);
         }
