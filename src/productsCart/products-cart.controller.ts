@@ -6,7 +6,7 @@ import { JwtGuard } from 'src/auth/jwt/guards/verifyJwt.guard';
 
 interface PayloadToken {
   id: number;
-  cart:number;
+  cartId:number;
   email: string;
   name: string
 }
@@ -19,10 +19,9 @@ export class ProductsCartController {
   @Post()
   create(@Body() createProductsCartDto: CreateProductsCartDto,@Req() request:Request) {
     console.log("enterrr");
-    const payloadToken:PayloadToken=request["user"];
-    console.log(payloadToken);
+    const cartId:number=parseInt(request["user"].cartId);
     
-    return this.productsCartService.create({...createProductsCartDto,idCart:payloadToken.cart});
+    return this.productsCartService.create({...createProductsCartDto,idCart:cartId});
   }
 
   @UseGuards(JwtGuard)

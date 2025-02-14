@@ -15,7 +15,8 @@ import { AuthModule } from 'src/auth/auth.module';
   controllers: [ProductController],
   providers: [ProductService],
   exports:[
-    TypeOrmModule
+    TypeOrmModule,
+    ProductService
   ]
 })
 export class ProductModule {}

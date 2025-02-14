@@ -16,5 +16,9 @@ export class CreateProductDto {
     @IsNotEmpty()
     @IsNumber()
     idSeller:number;
+
+    @IsNotEmpty()
+    @IsNumber()
+    stock:number;
 }
 

@@ -12,7 +12,7 @@ export class ProductsCart {
     idCart:number;
 
     @Column()
-    idProduct:number;
+    idProduct:string;
 
     @Column()
     quantity:number;

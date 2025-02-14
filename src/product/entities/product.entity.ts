@@ -6,8 +6,8 @@ import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "ty
 
 @Entity("products")
 export class Product {
-    @PrimaryGeneratedColumn()
-    id:number;
+    @PrimaryGeneratedColumn("uuid")
+    id:string;
 
     @Column()
     name:string;
@@ -20,6 +20,9 @@ export class Product {
     
     @Column()
     idSeller:number;
+
+    @Column()
+    stock:number;
 
     @ManyToOne(()=>User,user=>user.product)
     user:User;

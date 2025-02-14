@@ -40,7 +40,7 @@ export class ProductService {
     }
   }
 
-  async findOne(id: number): Promise<Product> {
+  async findOne(id: string): Promise<Product> {
     try {
       const product: Product = await this.ProductRepository.findOneBy({ id: id });
       if (!product) {
@@ -71,7 +71,7 @@ export class ProductService {
     }
   }
 
-  async update(id: number, updateProductDto: UpdateProductDto): Promise<string> {
+  async update(id: string, updateProductDto: UpdateProductDto): Promise<string> {
     try {
       const { affected }: number | any = await this.ProductRepository.update(id, updateProductDto);
       if (affected == 0) {
