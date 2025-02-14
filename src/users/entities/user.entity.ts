@@ -20,8 +20,8 @@ export class User {
     @Column()
     password:string;
 
-    // @Column()
-    // ubication:string;
+    @Column({default:"mi casa"})
+    ubication:string;
 
     @OneToMany(()=>Opinion,opinion=>opinion.user)
     opinion:Opinion[];

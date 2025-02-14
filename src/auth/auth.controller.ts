@@ -21,9 +21,9 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @UseGuards(LocalGuard)
-  @Post()
-  create(@Body() createAuthDto: CreateAuthDto,@Req() request:Request):ReturnTokens {
+  @Post("/login")
+  async create(@Body() createAuthDto: CreateAuthDto,@Req() request:Request):Promise<ReturnTokens> {
     const dataUser:PayloadToken | any=request["user"];
-    return this.authService.create(dataUser);
+    return await this.authService.create(dataUser);
   }
 }

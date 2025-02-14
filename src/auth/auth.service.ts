@@ -4,6 +4,8 @@ import { UpdateAuthDto } from './dto/update-auth.dto';
 import { JwtService } from '@nestjs/jwt';
 import { ManageError } from 'src/common/Errors/custom.error';
 import { CreateTokenDto } from './dto/createToken.dto';
+import { CartService } from 'src/cart/cart.service';
+import { Cart } from 'src/cart/entities/cart.entity';
 
 interface ReturnTokens{
   access_token:string;
@@ -12,14 +14,16 @@ interface ReturnTokens{
 
 interface PayloadToken{
   id: number;
-  cart:number;
+  cartId:number;
   email: string;
-  name:string
+  name:string;
+  iat:number;
+  exp:number;
 }
 
 interface ReturnDataRenovateToken extends ReturnTokens {
   id:number;
-  cart:number;
+  cartId:number;
   email: string;
   name: string
   iat?: number;
@@ -30,21 +34,24 @@ interface ReturnDataRenovateToken extends ReturnTokens {
 export class AuthService {
 
   constructor(
-    private jwtService:JwtService
+    private jwtService:JwtService,
+    private cartService:CartService
   ){}
 
-  create(createAuthDto: CreateTokenDto):ReturnTokens {
+  async create(createAuthDto: CreateTokenDto):Promise<ReturnTokens> {
+    const cartId:Cart=await this.cartService.create({idUser:createAuthDto.id});
     return{
-      access_token: this.jwtService.sign(createAuthDto,{expiresIn:"20m"}),
-      refresh_token: this.jwtService.sign(createAuthDto,{expiresIn:"4d"})
+      access_token: this.jwtService.sign({...createAuthDto,cartId:cartId.id},{expiresIn:"20m"}),
+      refresh_token: this.jwtService.sign({...createAuthDto,cartId:cartId.id},{expiresIn:"4d"})
     }
   }
 
   async renovateToken(refreshToken:string):Promise<ReturnDataRenovateToken>{
     try{
-      await this.jwtService.verify(refreshToken);
-      const payload:PayloadToken=this.jwtService.decode(refreshToken);
-      const newTokens=this.create({id:payload.id,email:payload.email,name:payload.name})
+      const payload:PayloadToken=await this.jwtService.verify(refreshToken);
+      delete payload.iat;
+      delete payload.exp;
+      const newTokens:ReturnTokens=await this.create({id:payload.id,email:payload.email,name:payload.name,cartId:payload.cartId})
       return{
         access_token:newTokens.access_token,
         refresh_token:newTokens.refresh_token,

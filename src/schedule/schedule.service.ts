@@ -89,12 +89,18 @@ export class ScheduleService {
     }
   }
 
-
-  update(id: number, updateScheduleDto: UpdateScheduleDto) {
-    return `This action updates a #${id} schedule`;
+  async update(id: number, updateScheduleDto: UpdateScheduleDto) {
+    try{
+      const {affected}=await this.scheduleRepository.update(id,updateScheduleDto);
+      if(affected==0){
+        
+      }
+    }catch(err:any){}
   }
 
   remove(id: number) {
-    return `This action removes a #${id} schedule`;
+    try{
+
+    }catch(err:any){}
   }
 }
